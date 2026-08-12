@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.DocumentEvent;
@@ -10,6 +9,9 @@ import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Calendar;
+import java.util.List;
+import java.util.ArrayList;
 public class DashboardSwing extends JFrame {
 //============================================================================
 // GESTIÓN DE BIBLIOTECA - Dashboard con Java Swing (VERSIÓN 2 - REDISEÑO)
@@ -58,8 +60,27 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         int anio;
         boolean referencia;
 
-        Libro(String codigo, String titulo, String autor, String editorial, String categoria, int anio, String estado)
+        Libro(String codigo, String titulo, String autor, String editorial, String categoria, int anio, String estado, boolean referencia, String observaciones) {
+            this.codigo = codigo;
+            this.titulo = titulo;
+            this.autor = autor;
+            this.editorial = editorial;
+            this.categoria = categoria;
+            this.anio = anio;
+            this.estado = estado;
+            this.referencia = referencia;
+            this.observaciones = observaciones;
+        }
     }
+
+    private final List<Libro> libros = new ArrayList<>(); //Aqui se almacenan los libros en una lista generica
+    private List<Libro> librosFiltrados = new ArrayList(); //Aqui se almacenan los libros que coinciden con la busqueda
+
+    private Libro libroSeleccionado = null; //Se guarda el libro que el usuacio selecciono actualmente, tiene null porque al inicio del programa no tiene seleccionado ninguno
+    private PanelRedondeado tarjetaSeleccionaUI = null; //Esta guarda la tarjeta visual que representa al libro seleccionado
+
+    private int siguiente = 1; //Esto es para generar automáticamente el código del siguiente libro
+    
     // COMPONENTES DEL FORMULARIO
     private JTextField txtNombre;
     private JTextField txtApellido;
