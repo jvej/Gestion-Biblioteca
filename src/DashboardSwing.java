@@ -151,7 +151,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
         //-----------LOGOTIPO A LA IZQUIERDA---------
         JPanel logo = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
-        logo.set0paque(false);
+        logo.setOpaque(false);
         JLabel lblIcono = new JLabel("\uD83D\uDCD6");
         lbnIcono.setFont(new Font("SansSerif", Font.PLAIN, 22));
         JLabel lblLogo = new JLabel("Bibliotec+");
@@ -160,7 +160,9 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         logo.add(lblLogo);
         barra.add(logo, BorderLayout.WEST);
 
-        menu.add(pnlPerfil, BorderLayout.NORTH);
+        JPanel nav = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
+        nav.setOpaque(false);
+        nav.add(crearPildoraMenu("Inicio", false));
 
         // -------------------------
         // Opciones
