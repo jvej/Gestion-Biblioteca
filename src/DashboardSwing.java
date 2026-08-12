@@ -109,33 +109,29 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     // =========================================================
     public GestionBiblioteca() {
 
-        setTitle("Aplicación Swing - Interfaz de Usuario");
+        setTitle("Gestión de Biblioteca - Dashboard Java Swing");
         setSize(1500, 930);
-        setMinimumSize(new Dimension(1200, 750));
+        setMinimumSize(new Dimension(1250, 750));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        getContentPane().setBackground(COLOR_FONDO);
         setLayout(new BorderLayout());
 
-        // Look & Feel
         configurarLookAndFeel();
 
-        // Menú izquierdo
-        add(crearMenuLateral(), BorderLayout.WEST);
-
-        // Contenido central
+        // ===== CAMBIO 1: antes iba add(crearMenuLateral(), BorderLayout.WEST)
+        //       ahora la navegación se ubica arriba, no al costado =====
+        add(crearBarraSuperior(), BorderLayout.NORTH);
         add(crearContenidoPrincipal(), BorderLayout.CENTER);
 
-        // Barra inferior
-        add(crearBarraEstado(), BorderLayout.SOUTH);
-
-        // Actualizar fecha cada segundo
+        cargarDatosIniciales();
+        actualizarTarjetasDashboard();
+        actualizarVistaCatalogo();
         iniciarReloj();
     }
 
-    // =========================================================
     // LOOK AND FEEL
-    // =========================================================
+
     private void configurarLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -147,41 +143,22 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     // =========================================================
     // MENÚ LATERAL
     // =========================================================
-    private JPanel crearMenuLateral() {
+    private JPanel crearBarraSuperior() {
 
-        JPanel menu = new JPanel(new BorderLayout());
-        menu.setPreferredSize(new Dimension(250, 0));
-        menu.setBackground(COLOR_SUPERFICIE);
-        menu.setLayout(new BorderLayout());
+        JPanel barra = new JPanel(new BorderLayout());
+        barra.setBackground(COLOR_SUPERFICIE);
+        barra.setBorder(new CompoundBorder(new MatteBorder(0,0,1,0, COLOR_BORDE)), new EmptyBorder(10,22,10,22));
 
-        // -------------------------
-        // Perfil
-        // -------------------------
-        JPanel pnlPerfil = new JPanel();
-        pnlPerfil.setOpaque(false);
-        pnlPerfil.setLayout(new BoxLayout(pnlPerfil, BoxLayout.Y_AXIS));
-        pnlPerfil.setBorder(new EmptyBorder(25, 15, 25, 15));
-
-        JLabel lblAvatar = new JLabel("●");
-        lblAvatar.setFont(new Font("Arial", Font.BOLD, 70));
-        lblAvatar.setForeground(new Color(56, 130, 230));
-        lblAvatar.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel lblNombre = new JLabel("<html><center>Dr. Juan De Dios<br>Murillo Morera</center></html>");
-        lblNombre.setForeground(Color.WHITE);
-        lblNombre.setFont(new Font("SansSerif", Font.BOLD, 17));
-        lblNombre.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel lblRol = new JLabel("Administrador");
-        lblRol.setForeground(new Color(220, 225, 230));
-        lblRol.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        lblRol.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        pnlPerfil.add(lblAvatar);
-        pnlPerfil.add(Box.createVerticalStrut(8));
-        pnlPerfil.add(lblNombre);
-        pnlPerfil.add(Box.createVerticalStrut(8));
-        pnlPerfil.add(lblRol);
+        //-----------LOGOTIPO A LA IZQUIERDA---------
+        JPanel logo = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
+        logo.set0paque(false);
+        JLabel lblIcono = new JLabel("\uD83D\uDCD6");
+        lbnIcono.setFont(new Font("SansSerif", Font.PLAIN, 22));
+        JLabel lblLogo = new JLabel("Bibliotec+");
+        lblLogo.setFont(new Font("SansSerif", Font.BOLD, 16));
+        logo.add(lblIcono);
+        logo.add(lblLogo);
+        barra.add(logo, BorderLayout.WEST);
 
         menu.add(pnlPerfil, BorderLayout.NORTH);
 
