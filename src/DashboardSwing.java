@@ -10,13 +10,12 @@ import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-//Axel le gustan
 public class DashboardSwing extends JFrame {
-//Axel
+
     // =========================================================
     // COLORES
     // =========================================================
-    private final Color COLOR_MENU = new Color(28, 58, 82);
+    private final Color COLOR_MENU = new Color(0, 0, 0);
     private final Color COLOR_MENU_ACTIVO = new Color(42, 116, 220);
     private final Color COLOR_FONDO = new Color(247, 249, 252);
     private final Color COLOR_AZUL = new Color(35, 111, 214);
@@ -82,9 +81,7 @@ public class DashboardSwing extends JFrame {
     // =========================================================
     private void configurarLookAndFeel() {
         try {
-            UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName()
-            );
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             System.out.println("No se pudo cargar Look & Feel.");
         }
