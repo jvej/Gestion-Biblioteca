@@ -15,19 +15,27 @@ public class DashboardSwing extends JFrame {
 // GESTIÓN DE BIBLIOTECA - Dashboard con Java Swing (VERSIÓN 2 - REDISEÑO)
 // ============================================================================
 // =========================================================
-    // COLORES
-    // =========================================================
+// COLORES
+// =========================================================
 private final Color COLOR_FONDO = new Color(244, 246, 249);
     private final Color COLOR_SUPERFICIE = Color.WHITE;
     private final Color COLOR_BORDE = new Color(228, 231, 237);
-
-    private final Color COLOR_VERDE = new Color(29, 158, 117);      // acento principal / activo
+    private final Color COLOR_VERDE = new Color(29, 158, 117);
     private final Color COLOR_VERDE_TEXTO = new Color(4, 52, 44);
-////
     private final Color COLOR_AMBAR = new Color(186, 117, 23);
     private final Color COLOR_CORAL = new Color(163, 45, 45);
     private final Color COLOR_MORADO = new Color(127, 119, 221);
-    //AXEL GIGACHAD
+
+    //Colores por estado del libro: {franja lateral, fondo etiquetado, texto etiqueta}
+
+    private Color[] coloresEstado(String estado) {
+        switch (estado) {
+            case "Disponible":
+                return new Color[] {new Color(93, 202, 165), new Color (234, 243, 222), new Color(23, 52, 4)};
+            case "Prestado":
+                return new Color [] {new Color(239, 159, 39), new Color(250, 238, 218), new Color(65, 36, 2)};
+        }
+    }
     // =========================================================
     // COMPONENTES DEL FORMULARIO
     // =========================================================
