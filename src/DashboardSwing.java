@@ -17,16 +17,16 @@ public class DashboardSwing extends JFrame {
 // =========================================================
     // COLORES
     // =========================================================
-    private final Color COLOR_MENU = new Color(244, 246, 249);
+private final Color COLOR_FONDO = new Color(244, 246, 249);
     private final Color COLOR_SUPERFICIE = Color.WHITE;
-    private final Color COLOR_MENU_ACTIVO = new Color(42, 116, 220);
-    private final Color COLOR_FONDO = new Color(247, 249, 252);
-    private final Color COLOR_AZUL = new Color(35, 111, 214);
-    private final Color COLOR_VERDE = new Color(42, 166, 78);
-    private final Color COLOR_NARANJA = new Color(255, 153, 0);
-    private final Color COLOR_ROJO = new Color(239, 76, 70);
-    private final Color COLOR_MORADO = new Color(126, 63, 218);
-    private final Color COLOR_BORDE = new Color(218, 223, 230);
+    private final Color COLOR_BORDE = new Color(228, 231, 237);
+
+    private final Color COLOR_VERDE = new Color(29, 158, 117);      // acento principal / activo
+    private final Color COLOR_VERDE_TEXTO = new Color(4, 52, 44);
+
+    private final Color COLOR_AMBAR = new Color(186, 117, 23);
+    private final Color COLOR_CORAL = new Color(163, 45, 45);
+    private final Color COLOR_MORADO = new Color(127, 119, 221);
     //AXEL GIGACHAD
     // =========================================================
     // COMPONENTES DEL FORMULARIO
