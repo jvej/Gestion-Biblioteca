@@ -622,7 +622,6 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         buscador.add(buscadorDerecha, BorderLayout.CENTER);
 
         panel.add(buscador, BorderLayout.NORTH);
-
         // -------------------------
         // Modelo
         // -------------------------
