@@ -355,13 +355,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         return panel;
     }
 
-    private JPanel crearTarjeta(
-            String icono,
-            String numero,
-            String descripcion,
-            Color color
-    ) {
-
+    private JPanel crearTarjeta(String icono, String numero, String descripcion, Color color) {
         JPanel tarjeta = crearPanelRedondeado();
         tarjeta.setLayout(new BorderLayout());
 
@@ -376,17 +370,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
         lblIcono.setPreferredSize(new Dimension(65, 65));
         lblIcono.setBorder(
-                new LineBorder(
-                        new Color(
-                                color.getRed(),
-                                color.getGreen(),
-                                color.getBlue(),
-                                100
-                        ),
-                        1,
-                        true
-                )
-        );
+                new LineBorder(new Color(color.getRed(), color.getGreen(), color.getBlue(), 100), 1, true));
 
         JPanel datos = new JPanel();
         datos.setOpaque(false);
@@ -408,8 +392,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         JButton detalles = new JButton("Ver detalles  →");
         detalles.setForeground(color);
         detalles.setBackground(Color.WHITE);
-        detalles.setBorder(
-                new CompoundBorder(
+        detalles.setBorder(new CompoundBorder(
                         new MatteBorder(1, 0, 0, 0, COLOR_BORDE),
                         new EmptyBorder(8, 15, 8, 15)
                 )
@@ -432,8 +415,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
         JPanel panel = crearPanelRedondeado();
         panel.setLayout(new BorderLayout(25, 10));
-        panel.setBorder(
-                new CompoundBorder(
+        panel.setBorder(new CompoundBorder(
                         new LineBorder(COLOR_BORDE, 1, true),
                         new EmptyBorder(18, 18, 15, 18)
                 )
@@ -478,71 +460,25 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         txtCorreo = crearCampoTexto();
         txtTelefono = crearCampoTexto();
 
-        cmbRol = new JComboBox<>(
-                new String[]{
-                        "Administrador",
-                        "Usuario",
-                        "Invitado"
-                }
-        );
+        cmbRol = new JComboBox<>(new String[]{"Administrador", "Usuario", "Invitado"});
 
-        cmbEstado = new JComboBox<>(
-                new String[]{
-                        "Activo",
-                        "Inactivo"
-                }
-        );
+        cmbEstado = new JComboBox<>(new String[]{ "Activo", "Inactivo "});
 
         configurarCombo(cmbRol);
         configurarCombo(cmbEstado);
 
-        agregarFilaFormulario(
-                formulario,
-                gbc,
-                0,
-                "Nombre:",
-                txtNombre
+        agregarFilaFormulario(formulario, gbc, 0, "Nombre:", txtNombre);
+
+        agregarFilaFormulario(formulario, gbc, 1, "Apellido:", txtApellido);
+
+        agregarFilaFormulario(formulario, gbc, 2, "Correo:", txtCorreo);
+
+        agregarFilaFormulario(formulario, gbc, 3, "Teléfono:", txtTelefono
         );
 
-        agregarFilaFormulario(
-                formulario,
-                gbc,
-                1,
-                "Apellido:",
-                txtApellido
-        );
+        agregarFilaFormulario(formulario, gbc, 4, "Rol:", cmbRol);
 
-        agregarFilaFormulario(
-                formulario,
-                gbc,
-                2,
-                "Correo:",
-                txtCorreo
-        );
-
-        agregarFilaFormulario(
-                formulario,
-                gbc,
-                3,
-                "Teléfono:",
-                txtTelefono
-        );
-
-        agregarFilaFormulario(
-                formulario,
-                gbc,
-                4,
-                "Rol:",
-                cmbRol
-        );
-
-        agregarFilaFormulario(
-                formulario,
-                gbc,
-                5,
-                "Estado:",
-                cmbEstado
-        );
+        agregarFilaFormulario(formulario, gbc, 5, "Estado:", cmbEstado);
 
         // Valores iniciales
         txtNombre.setText("Juan De Dios");
@@ -553,9 +489,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         panel.add(formulario, BorderLayout.CENTER);
 
         // Botones
-        JPanel botones = new JPanel(
-                new FlowLayout(FlowLayout.LEFT, 8, 0)
-        );
+        JPanel botones = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         botones.setOpaque(false);
 
         JButton btnNuevo =
