@@ -80,28 +80,34 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     private PanelRedondeado tarjetaSeleccionaUI = null; //Esta guarda la tarjeta visual que representa al libro seleccionado
 
     private int siguiente = 1; //Esto es para generar automáticamente el código del siguiente libro
-    
-    // COMPONENTES DEL FORMULARIO
-    private JTextField txtNombre;
-    private JTextField txtApellido;
-    private JTextField txtCorreo;
-    private JTextField txtTelefono;
-    private JComboBox<String> cmbRol;
-    private JComboBox<String> cmbEstado;
-    private JTextField txtBuscar;
-    private JTable tablaUsuarios;
-    private DefaultTableModel modeloTabla;
-    private TableRowSorter<DefaultTableModel> sorter;
-    private JTextArea txtNotas;
-    private JLabel lblFechaHora;
-    private JLabel lblEstadoBD;
 
-    private int siguienteId = 6;
+    // COMPONENTES DEL FORMULARIO
+    private JTextField txtCodigo;
+    private JTextField txtTitulo;
+    private JTextField txtAutor;
+    private JTextField txtEditorial;
+    private JComboBox<String> cmCategoria;
+    private JComboBox<String> cmbEstado;
+    private JSpinner spnAnio;
+    private JCheckBox chkRefencia;
+    private JTextArea txtObservaciones;
+    private JTextField txtBuscar;
+
+    private JPanel panelGrillaLibros;
+    private JPanel lblContadorLibros;
+    private JPanel panelPaginacion;
+
+    private JLanel lblFechaHora;
+    // Tarjetas del dashboard
+    private JLabel lblTotalLibros;
+    private JLabel lblDisponibles;
+    private JLabel lblPrestados;
+    private JLabel lblVencidos;
 
     // =========================================================
     // CONSTRUCTOR
     // =========================================================
-    public DashboardSwing() {
+    public GestionBiblioteca() {
 
         setTitle("Aplicación Swing - Interfaz de Usuario");
         setSize(1500, 930);
