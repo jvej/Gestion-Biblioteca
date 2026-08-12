@@ -34,11 +34,26 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
                 return new Color[] {new Color(93, 202, 165), new Color (234, 243, 222), new Color(23, 52, 4)};
             case "Prestado":
                 return new Color [] {new Color(239, 159, 39), new Color(250, 238, 218), new Color(65, 36, 2)};
+            case "Vencido":
+                return new Color[] {new Color(226, 75, 74), new Color(252, 235, 235), new Color(80, 19,19)};
+            case "Reservado":
+            default:
+                return new Color[] {new Color(127, 119, 221), new Color(238, 237, 254)};
         }
     }
-    // =========================================================
+
+
+    //Listas de valores fijos
+    private final String[] categorias = {
+            "Ficción", "No ficción", "Ciencia", "Tecnología",
+            "Historia", "Infantil", "Académico", "Otro"
+    };
+
+    private final String[] Estados = {
+            "Disponible", "Prestado", "Reservado", "Vencido"
+    };
+
     // COMPONENTES DEL FORMULARIO
-    // =========================================================
     private JTextField txtNombre;
     private JTextField txtApellido;
     private JTextField txtCorreo;
