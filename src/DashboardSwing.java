@@ -1765,25 +1765,14 @@ public class DashboardSwing extends JFrame {
     // RELOJ
     // =========================================================
     private void iniciarReloj() {
-
-        Timer timer =
-                new Timer(
-                        1000,
-                        e -> actualizarFecha()
-                );
-
+        Timer timer = new Timer(1000, e -> actualizarFecha());
         timer.start();
-
         actualizarFecha();
     }
 
     private void actualizarFecha() {
 
-        Locale locale =
-                new Locale(
-                        "es",
-                        "CR"
-                );
+        Locale locale = new Locale("es", "CR");
 
         DateTimeFormatter formatter =
                 DateTimeFormatter.ofPattern(
