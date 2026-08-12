@@ -206,8 +206,27 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         lbl.setFont(new Font("SansSerif", activo ? Font.BOLD : Font.PLAIN, 12));
         lbl.setForeground(activo ? COLOR_VERDE_TEXTO : new Color(90, 98, 110));
         pildora.add(lbl);
-   }
+        pildora.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                   if (!activo) pildora.setBackground(new Color(232, 235, 240));
+            }
 
+            @Override
+            public void mouseExited(MouseEvent e) {
+                   if (!activo) pildora.setBackground(COLOR_FONDO);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (!activo) {
+                    JOptionPane.showMessageDialog(GestionBiblioteca.this, "Esta sección todavía no está implementada en esta actividad.\n"  + "El módulo funcional es \"Catálogo\".", "Aviso", JOptionPane.INFORMATION_MESSAGE);}
+               }
+           });
+
+           return pildora;
+   }
+    //Llegue hasta aqui
     // =========================================================
     // CONTENIDO PRINCIPAL
     // =========================================================
