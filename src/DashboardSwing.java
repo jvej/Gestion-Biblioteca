@@ -25,7 +25,7 @@ public class DashboardSwing extends JFrame {
     private final Color COLOR_ROJO = new Color(239, 76, 70);
     private final Color COLOR_MORADO = new Color(126, 63, 218);
     private final Color COLOR_BORDE = new Color(218, 223, 230);
-
+    //AXEL GIGACHAD
     // =========================================================
     // COMPONENTES DEL FORMULARIO
     // =========================================================
