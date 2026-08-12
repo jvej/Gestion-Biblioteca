@@ -147,7 +147,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
         JPanel barra = new JPanel(new BorderLayout());
         barra.setBackground(COLOR_SUPERFICIE);
-        barra.setBorder(new CompoundBorder(new MatteBorder(0,0,1,0, COLOR_BORDE)), new EmptyBorder(10,22,10,22));
+        barra.setBorder(new CompoundBorder(new MatteBorder(0, 0, 1, 0, COLOR_BORDE)), new EmptyBorder(10, 22, 10, 22));
 
         //-----------LOGOTIPO A LA IZQUIERDA---------
         JPanel logo = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
@@ -173,57 +173,25 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         JPanel derecha = new JPanel(new FlowLayout(FlowLayout.RIGHT), 14, 0);
         derecha.setOpaque(false);
 
-        // -------------------------
-        // Opciones
-        // -------------------------
-        JPanel opciones = new JPanel();
-        opciones.setOpaque(false);
-        opciones.setLayout(new BoxLayout(opciones, BoxLayout.Y_AXIS));
-        opciones.setBorder(new EmptyBorder(5, 12, 5, 12));
+        lblFechaHora = new JLabel();
+        lblFechaHora.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        lblFechaHora.setForeground(Color.GRAY);
+        derecha.add(lblFechaHora);
+        PanelRedondeado avatar = new PanelRedondeado(999);
+        avatar.setBackground(new Color(216, 90, 48));
+        avatar.setPreferredSize(new Dimension(32, 32));
+        avatar.setLayout(new GridBagLayout());
+        JLabel lblIniciales = new JLabel("BC");
+        lblIniciales.setForeground(new Color(74, 27, 12));
+        lblIniciales.setFont(new Font("SansSerif", Font.BOLD, 11));
+        avatar.add(lblIniciales);
+        derecha.add(avatar);
 
-        opciones.add(crearBotonMenu("⌂  Inicio", true));
-        opciones.add(Box.createVerticalStrut(7));
+        barra.add(derecha, BorderLayout.EAST);
 
-        opciones.add(crearBotonMenu("♟  Usuarios", false));
-        opciones.add(Box.createVerticalStrut(7));
-
-        opciones.add(crearBotonMenu("□  Productos", false));
-        opciones.add(Box.createVerticalStrut(7));
-
-        opciones.add(crearBotonMenu("🛒  Ventas", false));
-        opciones.add(Box.createVerticalStrut(7));
-
-        opciones.add(crearBotonMenu("▥  Reportes", false));
-        opciones.add(Box.createVerticalStrut(7));
-
-        opciones.add(crearBotonMenu("⚙  Configuración", false));
-        opciones.add(Box.createVerticalStrut(7));
-
-        opciones.add(crearBotonMenu("ⓘ  Acerca de", false));
-
-        menu.add(opciones, BorderLayout.CENTER);
-
-        // -------------------------
-        // Cerrar sesión
-        // -------------------------
-        JPanel panelSalir = new JPanel(new BorderLayout());
-        panelSalir.setOpaque(false);
-        panelSalir.setBorder(new EmptyBorder(10, 15, 20, 15));
-
-        JButton btnSalir = crearBoton(
-                "⇥  Cerrar Sesión",
-                new Color(45, 70, 90),
-                new Color(255, 90, 90)
-        );
-
-        btnSalir.addActionListener(e -> cerrarSesion());
-
-        panelSalir.add(btnSalir);
-
-        menu.add(panelSalir, BorderLayout.SOUTH);
-
-        return menu;
+        return barra;
     }
+
 
     private JButton crearBotonMenu(String texto, boolean activo) {
 
