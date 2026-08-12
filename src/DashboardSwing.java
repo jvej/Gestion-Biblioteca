@@ -53,6 +53,13 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
             "Disponible", "Prestado", "Reservado", "Vencido"
     };
 
+    private static class Libro {
+        String codigo, titulo, autor, editorial, categoria, estado, observaciones;
+        int anio;
+        boolean referencia;
+
+        Libro(String codigo, String titulo, String autor, String editorial, String categoria, int anio, String estado)
+    }
     // COMPONENTES DEL FORMULARIO
     private JTextField txtNombre;
     private JTextField txtApellido;
@@ -61,13 +68,10 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     private JComboBox<String> cmbRol;
     private JComboBox<String> cmbEstado;
     private JTextField txtBuscar;
-
     private JTable tablaUsuarios;
     private DefaultTableModel modeloTabla;
     private TableRowSorter<DefaultTableModel> sorter;
-
     private JTextArea txtNotas;
-
     private JLabel lblFechaHora;
     private JLabel lblEstadoBD;
 
