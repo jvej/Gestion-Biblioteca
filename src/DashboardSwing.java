@@ -12,13 +12,12 @@ import java.util.Locale;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
-public class DashboardSwing extends JFrame {
-//============================================================================
+public class GestionBiblioteca extends JFrame {
+
 // GESTIÓN DE BIBLIOTECA - Dashboard con Java Swing (VERSIÓN 2 - REDISEÑO)
-// ============================================================================
-// =========================================================
+
+
 // COLORES
-// =========================================================
 private final Color COLOR_FONDO = new Color(244, 246, 249);
     private final Color COLOR_SUPERFICIE = Color.WHITE;
     private final Color COLOR_BORDE = new Color(228, 231, 237);
@@ -77,10 +76,11 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     private List<Libro> librosFiltrados = new ArrayList(); //Aqui se almacenan los libros que coinciden con la busqueda
 
     private Libro libroSeleccionado = null; //Se guarda el libro que el usuacio selecciono actualmente, tiene null porque al inicio del programa no tiene seleccionado ninguno
-    private PanelRedondeado tarjetaSeleccionaUI = null; //Esta guarda la tarjeta visual que representa al libro seleccionado
+    private PanelRedondeado tarjetaSeleccionadaUI = null;  //Esta guarda la tarjeta visual que representa al libro seleccionado
 
-    private int siguiente = 1; //Esto es para generar automáticamente el código del siguiente libro
-
+    private int siguienteCodigo = 1; //Esto es para generar automáticamente el código del siguiente libro
+    private int paginaActual = 0;
+    private final int LIBROS_POR_PAGINA = 6;
     // COMPONENTES DEL FORMULARIO
     private JTextField txtCodigo;
     private JTextField txtTitulo;
@@ -97,7 +97,8 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     private JPanel lblContadorLibros;
     private JPanel panelPaginacion;
 
-    private JLanel lblFechaHora;
+    private JLabel lblFechaHora;
+
     // Tarjetas del dashboard
     private JLabel lblTotalLibros;
     private JLabel lblDisponibles;
@@ -147,13 +148,13 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
         JPanel barra = new JPanel(new BorderLayout());
         barra.setBackground(COLOR_SUPERFICIE);
-        barra.setBorder(new CompoundBorder(new MatteBorder(0, 0, 1, 0, COLOR_BORDE)), new EmptyBorder(10, 22, 10, 22));
+        barra.setBorder(new CompoundBorder(new MatteBorder(0, 0, 1, 0, COLOR_BORDE), new EmptyBorder(10, 22, 10, 22)));
 
         //-----------LOGOTIPO A LA IZQUIERDA---------
         JPanel logo = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
         logo.setOpaque(false);
-        JLabel lblIcono = new JLabel("\uD83D\uDCD6");
-        lbnIcono.setFont(new Font("SansSerif", Font.PLAIN, 22));
+        JLabel lblIcono  = new JLabel("\uD83D\uDCD6");
+        lblIcono.setFont(new Font("SansSerif", Font.PLAIN, 22));
         JLabel lblLogo = new JLabel("Bibliotec+");
         lblLogo.setFont(new Font("SansSerif", Font.BOLD, 16));
         logo.add(lblIcono);
@@ -163,20 +164,21 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         JPanel nav = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
         nav.setOpaque(false);
         nav.add(crearPildoraMenu("Inicio", false));
-        nav.add(crearPildoraMenu("Catálogo", false));
+        nav.add(crearPildoraMenu("Catálogo", true));
         nav.add(crearPildoraMenu("Préstamos", false));
         nav.add(crearPildoraMenu("Reportes", false));
         nav.add(crearPildoraMenu("Configuración", false));
         barra.add(nav, BorderLayout.CENTER);
 
         // --- reloj + avatar a la derecha ---
-        JPanel derecha = new JPanel(new FlowLayout(FlowLayout.RIGHT), 14, 0);
+        JPanel derecha = new JPanel(new FlowLayout(FlowLayout.RIGHT, 14, 0));
         derecha.setOpaque(false);
 
         lblFechaHora = new JLabel();
         lblFechaHora.setFont(new Font("SansSerif", Font.PLAIN, 12));
         lblFechaHora.setForeground(Color.GRAY);
         derecha.add(lblFechaHora);
+
         PanelRedondeado avatar = new PanelRedondeado(999);
         avatar.setBackground(new Color(216, 90, 48));
         avatar.setPreferredSize(new Dimension(32, 32));
@@ -193,49 +195,18 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     }
 
 
-    private JButton crearBotonMenu(String texto, boolean activo) {
+   private PanelRedondeado crearPildoraMenu(String texto, boolean activo) {
+        PanelRedondeado pildora = new PanelRedondeado(999);
+        pildora.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        pildora.setBorder(new EmptyBorder(7, 14, 7, 14));
+        pildora.setBackground(activo? COLOR_VERDE : COLOR_FONDO);
+        pildora.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        JButton boton = new JButton(texto);
-
-        boton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 55));
-        boton.setPreferredSize(new Dimension(220, 55));
-
-        boton.setHorizontalAlignment(SwingConstants.LEFT);
-        boton.setFont(new Font("SansSerif", Font.PLAIN, 16));
-
-        boton.setForeground(Color.WHITE);
-        boton.setBackground(activo ? COLOR_MENU_ACTIVO : COLOR_MENU);
-
-        boton.setBorder(new EmptyBorder(0, 18, 0, 10));
-        boton.setFocusPainted(false);
-        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        boton.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if (!activo) {
-                    boton.setBackground(new Color(38, 79, 108));
-                }
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if (!activo) {
-                    boton.setBackground(COLOR_MENU);
-                }
-            }
-        });
-
-        boton.addActionListener(e ->
-                JOptionPane.showMessageDialog(
-                        DashboardSwing.this,
-                        "Seleccionó: " + texto.replaceAll("[^A-Za-zÁÉÍÓÚáéíóúñÑ ]", "").trim()
-                )
-        );
-
-        return boton;
-    }
+        JLabel lbl = new JLabel(texto);
+        lbl.setFont(new Font("SansSerif", activo ? Font.BOLD : Font.PLAIN, 12));
+        lbl.setForeground(activo ? COLOR_VERDE_TEXTO : new Color(90, 98, 110));
+        pildora.add(lbl);
+   }
 
     // =========================================================
     // CONTENIDO PRINCIPAL
