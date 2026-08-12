@@ -41,9 +41,19 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
                 return new Color[] {new Color(127, 119, 221), new Color(238, 237, 254)};
         }
     }
-    // =========================================================
+
+
+    //Listas de valores fijos
+    private final String[] categorias = {
+            "Ficción", "No ficción", "Ciencia", "Tecnología",
+            "Historia", "Infantil", "Académico", "Otro"
+    };
+
+    private final String[] Estados = {
+            "Disponible", "Prestado", "Reservado", "Vencido"
+    };
+
     // COMPONENTES DEL FORMULARIO
-    // =========================================================
     private JTextField txtNombre;
     private JTextField txtApellido;
     private JTextField txtCorreo;
