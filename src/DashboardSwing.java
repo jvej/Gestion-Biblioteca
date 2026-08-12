@@ -149,9 +149,9 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     // =========================================================
     private JPanel crearMenuLateral() {
 
-        JPanel menu = new JPanel();
+        JPanel menu = new JPanel(new BorderLayout());
         menu.setPreferredSize(new Dimension(250, 0));
-        menu.setBackground(COLOR_MENU);
+        menu.setBackground(COLOR_SUPERFICIE);
         menu.setLayout(new BorderLayout());
 
         // -------------------------
@@ -415,8 +415,8 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         lblIcono.setForeground(color);
 
         lblIcono.setPreferredSize(new Dimension(65, 65));
-        lblIcono.setBorder(
-                new LineBorder(new Color(color.getRed(), color.getGreen(), color.getBlue(), 100), 1, true));
+        lblIcono.setBorder(new LineBorder(
+                new Color(color.getRed(), color.getGreen(), color.getBlue(), 100), 1, true));
 
         JPanel datos = new JPanel();
         datos.setOpaque(false);
@@ -588,15 +588,9 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
         campo.setBorder(
                 new CompoundBorder(
-                        new LineBorder(
-                                new Color(195, 200, 210),
-                                1,
-                                true
-                        ),
-                        new EmptyBorder(5, 10, 5, 10)
-                )
+                        new LineBorder(new Color(195, 200, 210), 1, true),
+                        new EmptyBorder(5, 10, 5, 10))
         );
-
         return campo;
     }
 
@@ -604,18 +598,10 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
         combo.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
-        combo.setPreferredSize(
-                new Dimension(250, 35)
-        );
+        combo.setPreferredSize(new Dimension(250, 35));
     }
 
-    private void agregarFilaFormulario(
-            JPanel panel,
-            GridBagConstraints gbc,
-            int fila,
-            String etiqueta,
-            Component componente
-    ) {
+    private void agregarFilaFormulario(JPanel panel, GridBagConstraints gbc, int fila, String etiqueta, Component componente) {
 
         gbc.gridx = 0;
         gbc.gridy = fila;
@@ -651,11 +637,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
         txtBuscar = crearCampoTexto();
 
-        JButton btnBuscar = crearBoton(
-                "🔍",
-                new Color(245, 247, 250),
-                Color.DARK_GRAY
-        );
+        JButton btnBuscar = crearBoton("🔍", new Color(245, 247, 250), Color.DARK_GRAY);
 
         JPanel buscadorDerecha = new JPanel(new BorderLayout(6, 0));
         buscadorDerecha.setOpaque(false);
@@ -667,20 +649,11 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         buscador.add(buscadorDerecha, BorderLayout.CENTER);
 
         panel.add(buscador, BorderLayout.NORTH);
-
         // -------------------------
         // Modelo
         // -------------------------
-        String[] columnas = {
-                "ID",
-                "Nombre",
-                "Correo",
-                "Rol",
-                "Estado"
-        };
-
+        String[] columnas = {"ID", "Nombre", "Correo", "Rol", "Estado"};
         Object[][] datos = {
-
                 {
                         1,
                         "Juan De Dios Murillo",
