@@ -9,6 +9,7 @@ import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.List;
 import java.util.ArrayList;
 public class DashboardSwing extends JFrame {
 //============================================================================
@@ -71,8 +72,13 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         }
     }
 
-    private final List<Libro> libros = new ArrayList<>();
-    private List<Libro> librosFiltrados = new ArrayList();
+    private final List<Libro> libros = new ArrayList<>(); //Aqui se almacenan los libros en una lista generica
+    private List<Libro> librosFiltrados = new ArrayList(); //Aqui se almacenan los libros que coinciden con la busqueda
+
+    private Libro libroSeleccionado = null; //Se guarda el libro que el usuacio selecciono actualmente, tiene null porque al inicio del programa no tiene seleccionado ninguno
+    private PanelRedondeado tarjetaSeleccionaUI = null;
+
+    private int siguiente = 1;
     // COMPONENTES DEL FORMULARIO
     private JTextField txtNombre;
     private JTextField txtApellido;
