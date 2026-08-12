@@ -23,7 +23,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
     private final Color COLOR_VERDE = new Color(29, 158, 117);      // acento principal / activo
     private final Color COLOR_VERDE_TEXTO = new Color(4, 52, 44);
-
+////
     private final Color COLOR_AMBAR = new Color(186, 117, 23);
     private final Color COLOR_CORAL = new Color(163, 45, 45);
     private final Color COLOR_MORADO = new Color(127, 119, 221);
