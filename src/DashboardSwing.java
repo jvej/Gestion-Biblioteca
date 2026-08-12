@@ -11,11 +11,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 public class DashboardSwing extends JFrame {
-
-    // =========================================================
+//============================================================================
+// GESTIÓN DE BIBLIOTECA - Dashboard con Java Swing (VERSIÓN 2 - REDISEÑO)
+// ============================================================================
+// =========================================================
     // COLORES
     // =========================================================
-    private final Color COLOR_MENU = new Color(0, 0, 0);
+    private final Color COLOR_MENU = new Color(244, 246, 249);
+    private final Color COLOR_SUPERFICIE = Color.WHITE;
     private final Color COLOR_MENU_ACTIVO = new Color(42, 116, 220);
     private final Color COLOR_FONDO = new Color(247, 249, 252);
     private final Color COLOR_AZUL = new Color(35, 111, 214);
@@ -110,9 +113,7 @@ public class DashboardSwing extends JFrame {
         lblAvatar.setForeground(new Color(56, 130, 230));
         lblAvatar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel lblNombre = new JLabel(
-                "<html><center>Dr. Juan De Dios<br>Murillo Morera</center></html>"
-        );
+        JLabel lblNombre = new JLabel("<html><center>Dr. Juan De Dios<br>Murillo Morera</center></html>");
         lblNombre.setForeground(Color.WHITE);
         lblNombre.setFont(new Font("SansSerif", Font.BOLD, 17));
         lblNombre.setAlignmentX(Component.CENTER_ALIGNMENT);
