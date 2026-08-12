@@ -163,6 +163,15 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         JPanel nav = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
         nav.setOpaque(false);
         nav.add(crearPildoraMenu("Inicio", false));
+        nav.add(crearPildoraMenu("Catálogo", false));
+        nav.add(crearPildoraMenu("Préstamos", false));
+        nav.add(crearPildoraMenu("Reportes", false));
+        nav.add(crearPildoraMenu("Configuración", false));
+        barra.add(nav, BorderLayout.CENTER);
+
+        // --- reloj + avatar a la derecha ---
+        JPanel derecha = new JPanel(new FlowLayout(FlowLayout.RIGHT), 14, 0);
+        derecha.setOpaque(false);
 
         // -------------------------
         // Opciones
