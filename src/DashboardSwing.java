@@ -143,9 +143,9 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     // =========================================================
     private JPanel crearMenuLateral() {
 
-        JPanel menu = new JPanel();
+        JPanel menu = new JPanel(new BorderLayout());
         menu.setPreferredSize(new Dimension(250, 0));
-        menu.setBackground(COLOR_MENU);
+        menu.setBackground(COLOR_SUPERFICIE);
         menu.setLayout(new BorderLayout());
 
         // -------------------------
