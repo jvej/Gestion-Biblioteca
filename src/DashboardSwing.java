@@ -288,33 +288,19 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
         JPanel principal = new JPanel(new BorderLayout());
         principal.setBackground(COLOR_FONDO);
+        principal.setBorder(new EmptyBorder(14,22,18,22));
 
         principal.add(crearCabecera(), BorderLayout.NORTH);
 
-        JPanel contenido = new JPanel();
-        contenido.setBackground(COLOR_FONDO);
-        contenido.setLayout(new BoxLayout(contenido, BoxLayout.Y_AXIS));
-        contenido.setBorder(new EmptyBorder(12, 15, 12, 15));
+        JPanel cuerpo = new JPanel(new BorderLayout(16,0));
+        cuerpo.setOpaque(false);
+        cuerpo.setBorder(new EmptyBorder(14,0,0,0));
 
         // Tarjetas
-        contenido.add(crearPanelTarjetas());
-        contenido.add(Box.createVerticalStrut(12));
+        cuerpo.add(crearFormularioLibro(),BorderLayout.WEST);
+        cuerpo.add(crearPanelCatalogo(), BorderLayout.CENTER);
 
-        // Formulario + tabla
-        contenido.add(crearPanelGestionUsuarios());
-        contenido.add(Box.createVerticalStrut(12));
-
-        // Información y notas
-        contenido.add(crearPanelInferior());
-
-        JScrollPane scroll = new JScrollPane(contenido);
-        scroll.setBorder(null);
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
-        scroll.setHorizontalScrollBarPolicy(
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
-        );
-
-        principal.add(scroll, BorderLayout.CENTER);
+        principal.add(cuerpo, BorderLayout.CENTER);
 
         return principal;
     }
