@@ -749,5 +749,112 @@ public class GestionBiblioteca extends JFrame {
     }
 
     //Hasta aqui voy
+    // =========================================================
+    private boolean validarCampos() {
 
+        StringBuilder errores = new StringBuilder();
+
+        if (txtCodigo.getText().trim().isEmpty()) errores.append("- El código es obligatorio.\n");
+        if (txtTitulo.getText().trim().isEmpty()) errores.append("- El título es obligatorio.\n");
+        if (txtAutor.getText().trim().isEmpty()) errores.append("- El autor es obligatorio.\n");
+        if (txtEditorial.getText().trim().isEmpty()) errores.append("- La editorial es obligatoria.\n");
+
+        if (errores.length() > 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor corrija los siguientes errores antes de continuar:\n\n" + errores,
+                    "Datos incompletos", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean existeCodigo(String codigo, Libro ignorar) {
+        for (Libro l : libros) {
+            if (l == ignorar) continue;
+            if (l.codigo.equalsIgnoreCase(codigo)) return true;
+        }
+        return false;
+    }
+    // =========================================================
+    private void filtrarLibros() {
+
+        String texto = txtBuscar.getText().trim().toLowerCase();
+
+        librosFiltrados = new ArrayList<>();
+        for (Libro l : libros) {
+            if (texto.isEmpty()
+                    || l.codigo.toLowerCase().contains(texto)
+                    || l.titulo.toLowerCase().contains(texto)
+                    || l.autor.toLowerCase().contains(texto)
+                    || l.categoria.toLowerCase().contains(texto)) {
+                librosFiltrados.add(l);
+            }
+        }
+
+        paginaActual = 0;
+        actualizarVistaCatalogo();
+    }
+
+    private void actualizarVistaCatalogo() {
+
+        if (txtBuscar == null || txtBuscar.getText().trim().isEmpty()) {
+            librosFiltrados = new ArrayList<>(libros);
+        }
+
+        panelGrillaLibros.removeAll();
+
+        int inicio = paginaActual * LIBROS_POR_PAGINA;
+        int fin = Math.min(inicio + LIBROS_POR_PAGINA, librosFiltrados.size());
+
+        for (int i = inicio; i < fin; i++) {
+            panelGrillaLibros.add(crearTarjetaLibro(librosFiltrados.get(i)));
+        }
+
+        panelGrillaLibros.revalidate();
+        panelGrillaLibros.repaint();
+
+        lblContadorLibros.setText(Math.max(fin - inicio, 0) + " de " + librosFiltrados.size() + " libros");
+
+        construirPaginacion();
+    }
+
+
+    private void construirPaginacion() {
+
+        panelPaginacion.removeAll();
+
+        int totalPaginas = (int) Math.ceil(librosFiltrados.size() / (double) LIBROS_POR_PAGINA);
+        if (totalPaginas == 0) totalPaginas = 1;
+
+        for (int i = 0; i < totalPaginas; i++) {
+            final int numeroPagina = i;
+            boolean activa = (i == paginaActual);
+
+            PanelRedondeado boton = new PanelRedondeado(6);
+            boton.setBackground(activa ? COLOR_VERDE : COLOR_FONDO);
+            boton.setPreferredSize(new Dimension(24, 24));
+            boton.setLayout(new GridBagLayout());
+            boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            JLabel lbl = new JLabel(String.valueOf(i + 1));
+            lbl.setFont(new Font("SansSerif", Font.PLAIN, 11));
+            lbl.setForeground(activa ? Color.WHITE : Color.GRAY);
+            boton.add(lbl);
+
+            // Evento: cambiar de página
+            boton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    paginaActual = numeroPagina;
+                    actualizarVistaCatalogo();
+                }
+            });
+
+            panelPaginacion.add(boton);
+        }
+
+        panelPaginacion.revalidate();
+        panelPaginacion.repaint();
+    }
 }
