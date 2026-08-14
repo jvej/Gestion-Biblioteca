@@ -45,12 +45,12 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
 
     //Listas de valores fijos
-    private final String[] categorias = {
+    private final String[] CATEGORIAS = {
             "Ficción", "No ficción", "Ciencia", "Tecnología",
             "Historia", "Infantil", "Académico", "Otro"
     };
 
-    private final String[] Estados = {
+    private final String[] ESTADOS = {
             "Disponible", "Prestado", "Reservado", "Vencido"
     };
 
@@ -81,7 +81,8 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     private int siguienteCodigo = 1; //Esto es para generar automáticamente el código del siguiente libro
     private int paginaActual = 0;
     private final int LIBROS_POR_PAGINA = 6;
-    // COMPONENTES DEL FORMULARIO
+
+
     private JTextField txtCodigo;
     private JTextField txtTitulo;
     private JTextField txtAutor;
@@ -94,9 +95,8 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     private JTextField txtBuscar;
 
     private JPanel panelGrillaLibros;
-    private JPanel lblContadorLibros;
+    private JLanel lblContadorLibros;
     private JPanel panelPaginacion;
-
     private JLabel lblFechaHora;
 
     // Tarjetas del dashboard
@@ -264,140 +264,326 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
         return panel;
     }
-    // =========================================================
-    // CABECERA
-    // =========================================================
-    private JPanel crearCabecera() {
 
-        JPanel cabecera = new JPanel(new BorderLayout());
-        cabecera.setBackground(Color.WHITE);
-        cabecera.setBorder(
-                new CompoundBorder(
-                        new MatteBorder(0, 0, 1, 0, COLOR_BORDE),
-                        new EmptyBorder(22, 35, 18, 35)
-                )
-        );
 
-        JPanel izquierda = new JPanel();
-        izquierda.setOpaque(false);
-        izquierda.setLayout(new BoxLayout(izquierda, BoxLayout.Y_AXIS));
+    private JPanel crearTarjeta(String icono, JLabel lblNumero, String descripcion, Color colorIcono) {
 
-        JLabel titulo = new JLabel("Dashboard");
-        titulo.setFont(new Font("SansSerif", Font.BOLD, 27));
+        PanelRedondeado tarjeta = new PanelRedondeado(12);
+        tarjeta.setBackground(COLOR_SUPERFICIE);
+        tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));   // ===== CAMBIO 2: vertical, antes era horizontal =====
+        tarjeta.setBorder(new EmptyBorder(12, 14, 12, 14));
 
-        JLabel subtitulo = new JLabel("Bienvenido al sistema de gestión");
-        subtitulo.setForeground(Color.GRAY);
-        subtitulo.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        JLabel lblIcono = new JLabel(icono);
+        lblIcono.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        lblIcono.setForeground(colorIcono);
+        lblIcono.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        izquierda.add(titulo);
-        izquierda.add(Box.createVerticalStrut(5));
-        izquierda.add(subtitulo);
+        lblNumero.setFont(new Font("SansSerif", Font.BOLD, 21));
+        lblNumero.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        cabecera.add(izquierda, BorderLayout.WEST);
+        JLabel lblDescripcion = new JLabel(descripcion);
+        lblDescripcion.setFont(new Font("SansSerif", Font.PLAIN, 11));
+        lblDescripcion.setForeground(Color.GRAY);
+        lblDescripcion.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        lblFechaHora = new JLabel();
-        lblFechaHora.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblFechaHora.setForeground(COLOR_AZUL);
-        lblFechaHora.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        tarjeta.add(lblIcono);
+        tarjeta.add(Box.createVerticalStrut(6));
+        tarjeta.add(lblNumero);
+        tarjeta.add(Box.createVerticalStrut(2));
+        tarjeta.add(lblDescripcion);
 
-        cabecera.add(lblFechaHora, BorderLayout.EAST);
-
-        return cabecera;
+        return tarjeta;
     }
 
-    // =========================================================
-    // TARJETAS
-    // =========================================================
-    private JPanel crearPanelTarjetas() {
+    private JPanel crearFormularioLibro() {
 
-        JPanel panel = new JPanel(new GridLayout(1, 4, 18, 0));
-        panel.setOpaque(false);
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
-        panel.setPreferredSize(new Dimension(1000, 140));
+        PanelRedondeado panel = new PanelRedondeado(12);
+        panel.setBackground(COLOR_SUPERFICIE);
+        panel.setPreferredSize(new Dimension(250, 0));   // ancho fijo, a diferencia de la v1
+        panel.setLayout(new BorderLayout(0, 10));
+        panel.setBorder(new EmptyBorder(14, 14, 14, 14));
 
-        panel.add(crearTarjeta(
-                "👥",
-                "128",
-                "Usuarios",
-                COLOR_AZUL
-        ));
+        JLabel titulo = new JLabel("＋ Agregar / editar libro");
+        titulo.setFont(new Font("SansSerif", Font.BOLD, 13));
+        panel.add(titulo, BorderLayout.NORTH);
 
-        panel.add(crearTarjeta(
-                "□",
-                "256",
-                "Productos",
-                COLOR_VERDE
-        ));
+        JPanel campos = new JPanel();
+        campos.setOpaque(false);
+        campos.setLayout(new BoxLayout(campos, BoxLayout.Y_AXIS));
 
-        panel.add(crearTarjeta(
-                "🛒",
-                "75",
-                "Ventas Hoy",
-                COLOR_NARANJA
-        ));
+        txtCodigo = crearCampoTexto("Código");
+        txtTitulo = crearCampoTexto("Título");
+        txtAutor = crearCampoTexto("Autor");
+        txtEditorial = crearCampoTexto("Editorial");
 
-        panel.add(crearTarjeta(
-                "$",
-                "₡1,250,000",
-                "Ingresos Hoy",
-                COLOR_MORADO
-        ));
+        cmbCategoria = new JComboBox<>(CATEGORIAS);
+        cmbEstado = new JComboBox<>(ESTADOS);
+        estilizarCombo(cmbCategoria);
+        estilizarCombo(cmbEstado);
+
+        int anioActual = Calendar.getInstance().get(Calendar.YEAR);
+        spnAnio = new JSpinner(new SpinnerNumberModel(anioActual, 1450, anioActual, 1));
+        alinearIzquierdaYAngosto(spnAnio);
+
+        chkReferencia = new JCheckBox("Solo referencia (no se presta)");
+        chkReferencia.setOpaque(false);
+        chkReferencia.setFont(new Font("SansSerif", Font.PLAIN, 11));
+        chkReferencia.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        txtObservaciones = new JTextArea(3, 10);
+        txtObservaciones.setLineWrap(true);
+        txtObservaciones.setWrapStyleWord(true);
+        txtObservaciones.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        JScrollPane scrollObs = new JScrollPane(txtObservaciones);
+        scrollObs.setBorder(new LineBorder(COLOR_BORDE, 1, true));
+        scrollObs.setAlignmentX(Component.LEFT_ALIGNMENT);
+        scrollObs.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
+
+        JLabel lblObs = new JLabel("Observaciones");
+        lblObs.setFont(new Font("SansSerif", Font.PLAIN, 11));
+        lblObs.setForeground(Color.GRAY);
+        lblObs.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        campos.add(txtCodigo);
+        campos.add(Box.createVerticalStrut(6));
+        campos.add(txtTitulo);
+        campos.add(Box.createVerticalStrut(6));
+        campos.add(txtAutor);
+        campos.add(Box.createVerticalStrut(6));
+        campos.add(txtEditorial);
+        campos.add(Box.createVerticalStrut(6));
+        campos.add(cmbCategoria);
+        campos.add(Box.createVerticalStrut(6));
+        campos.add(spnAnio);
+        campos.add(Box.createVerticalStrut(6));
+        campos.add(cmbEstado);
+        campos.add(Box.createVerticalStrut(6));
+        campos.add(chkReferencia);
+        campos.add(Box.createVerticalStrut(6));
+        campos.add(lblObs);
+        campos.add(Box.createVerticalStrut(3));
+        campos.add(scrollObs);
+
+        panel.add(campos, BorderLayout.CENTER);
+
+        // -------------------------
+        // Botones de acción CRUD (ahora apilados, no en fila)
+        // -------------------------
+        JPanel botones = new JPanel();
+        botones.setOpaque(false);
+        botones.setLayout(new BoxLayout(botones, BoxLayout.Y_AXIS));
+
+        JButton btnGuardar = crearBoton("Guardar libro", COLOR_VERDE, COLOR_VERDE_TEXTO, true);
+
+        JPanel filaEditarEliminar = new JPanel(new GridLayout(1, 2, 6, 0));
+        filaEditarEliminar.setOpaque(false);
+        filaEditarEliminar.setAlignmentX(Component.LEFT_ALIGNMENT);
+        filaEditarEliminar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        JButton btnEditar = crearBoton("Editar", new Color(238, 240, 244), Color.BLACK, false);
+        JButton btnEliminar = crearBoton("Eliminar", new Color(252, 235, 235), COLOR_CORAL, false);
+        filaEditarEliminar.add(btnEditar);
+        filaEditarEliminar.add(btnEliminar);
+
+        JButton btnNuevo = crearBoton("＋ Nuevo registro", new Color(238, 240, 244), Color.BLACK, false);
+        JButton btnLimpiar = crearBoton("Limpiar formulario", COLOR_SUPERFICIE, Color.GRAY, false);
+
+        botones.add(btnGuardar);
+        botones.add(Box.createVerticalStrut(6));
+        botones.add(filaEditarEliminar);
+        botones.add(Box.createVerticalStrut(6));
+        botones.add(btnNuevo);
+        botones.add(Box.createVerticalStrut(4));
+        botones.add(btnLimpiar);
+
+        panel.add(botones, BorderLayout.SOUTH);
+
+        // Eventos (misma lógica que la v1, solo cambian los botones que la disparan)
+        btnNuevo.addActionListener(e -> nuevoLibro());
+        btnGuardar.addActionListener(e -> guardarLibro());
+        btnEditar.addActionListener(e -> editarLibro());
+        btnEliminar.addActionListener(e -> eliminarLibro());
+        btnLimpiar.addActionListener(e -> limpiarFormulario());
 
         return panel;
     }
 
-    private JPanel crearTarjeta(String icono, String numero, String descripcion, Color color) {
-        JPanel tarjeta = crearPanelRedondeado();
-        tarjeta.setLayout(new BorderLayout());
+    private JTextField crearCampoTexto(String placeholder) {
+        JTextField campo = new JTextField();
+        campo.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        campo.setToolTipText(placeholder);
+        campo.setBorder(new CompoundBorder(new LineBorder(COLOR_BORDE, 1, true), new EmptyBorder(5, 8, 5, 8)));
+        alinearIzquierdaYAngosto(campo);
+        return campo;
+    }
 
-        JPanel arriba = new JPanel(new BorderLayout(15, 0));
-        arriba.setOpaque(false);
-        arriba.setBorder(new EmptyBorder(15, 18, 10, 18));
+    private void estilizarCombo(JComboBox<String> combo) {
+        combo.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        alinearIzquierdaYAngosto(combo);
+    }
 
-        JLabel lblIcono = new JLabel(icono);
-        lblIcono.setHorizontalAlignment(SwingConstants.CENTER);
-        lblIcono.setFont(new Font("SansSerif", Font.BOLD, 28));
-        lblIcono.setForeground(color);
+    private void alinearIzquierdaYAngosto(JComponent c) {
+        c.setAlignmentX(Component.LEFT_ALIGNMENT);
+        c.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+    }
 
-        lblIcono.setPreferredSize(new Dimension(65, 65));
-        lblIcono.setBorder(new LineBorder(
-                new Color(color.getRed(), color.getGreen(), color.getBlue(), 100), 1, true));
+    private JPanel crearPanelCatalogo() {
 
-        JPanel datos = new JPanel();
-        datos.setOpaque(false);
-        datos.setLayout(new BoxLayout(datos, BoxLayout.Y_AXIS));
+        JPanel panel = new JPanel(new BorderLayout(0, 10));
+        panel.setOpaque(false);
 
-        JLabel lblNumero = new JLabel(numero);
-        lblNumero.setFont(new Font("SansSerif", Font.BOLD, 24));
+        // --- buscador tipo píldora ---
+        JPanel filaBuscador = new JPanel(new BorderLayout(8, 0));
+        filaBuscador.setOpaque(false);
 
-        JLabel lblDescripcion = new JLabel(descripcion);
-        lblDescripcion.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        PanelRedondeado buscador = new PanelRedondeado(999);
+        buscador.setBackground(COLOR_SUPERFICIE);
+        buscador.setLayout(new BorderLayout(6, 0));
+        buscador.setBorder(new EmptyBorder(7, 14, 7, 14));
 
-        datos.add(lblNumero);
-        datos.add(Box.createVerticalStrut(5));
-        datos.add(lblDescripcion);
+        JLabel lupa = new JLabel("🔍");
+        lupa.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        buscador.add(lupa, BorderLayout.WEST);
 
-        arriba.add(lblIcono, BorderLayout.WEST);
-        arriba.add(datos, BorderLayout.CENTER);
+        txtBuscar = new JTextField();
+        txtBuscar.setBorder(null);
+        txtBuscar.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        txtBuscar.setToolTipText("Buscar por título, autor, código o categoría");
+        buscador.add(txtBuscar, BorderLayout.CENTER);
 
-        JButton detalles = new JButton("Ver detalles  →");
-        detalles.setForeground(color);
-        detalles.setBackground(Color.WHITE);
-        detalles.setBorder(new CompoundBorder(
-                        new MatteBorder(1, 0, 0, 0, COLOR_BORDE),
-                        new EmptyBorder(8, 15, 8, 15)
-                )
-        );
+        filaBuscador.add(buscador, BorderLayout.CENTER);
 
-        detalles.setHorizontalAlignment(SwingConstants.LEFT);
-        detalles.setFocusPainted(false);
-        detalles.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblContadorLibros = new JLabel("0 de 0 libros");
+        lblContadorLibros.setFont(new Font("SansSerif", Font.PLAIN, 11));
+        lblContadorLibros.setForeground(Color.GRAY);
+        filaBuscador.add(lblContadorLibros, BorderLayout.EAST);
 
-        tarjeta.add(arriba, BorderLayout.CENTER);
-        tarjeta.add(detalles, BorderLayout.SOUTH);
+        panel.add(filaBuscador, BorderLayout.NORTH);
+
+        // --- grilla de tarjetas de libros (reemplaza a la JTable) ---
+        panelGrillaLibros = new JPanel(new GridLayout(0, 2, 10, 10));
+        panelGrillaLibros.setOpaque(false);
+
+        JPanel contenedorGrilla = new JPanel(new BorderLayout());
+        contenedorGrilla.setOpaque(false);
+        contenedorGrilla.add(panelGrillaLibros, BorderLayout.NORTH);
+
+        JScrollPane scroll = new JScrollPane(contenedorGrilla);
+        scroll.setBorder(null);
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        panel.add(scroll, BorderLayout.CENTER);
+
+        // --- paginación numerada ---
+        panelPaginacion = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));
+        panelPaginacion.setOpaque(false);
+        panel.add(panelPaginacion, BorderLayout.SOUTH);
+
+        // Evento: filtrado dinámico (misma idea que la v1, pero sobre la lista, no sobre RowFilter)
+        txtBuscar.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { filtrarLibros(); }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) { filtrarLibros(); }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) { filtrarLibros(); }
+        });
+
+        return panel;
+    }
+
+    private PanelRedondeado crearTarjetaLibro(Libro libro) {
+
+        Color[] colores = coloresEstado(libro.estado);
+
+        PanelRedondeado tarjeta = new PanelRedondeado(12);
+        tarjeta.setBackground(COLOR_SUPERFICIE);
+        tarjeta.setLayout(new BorderLayout(10, 0));
+        tarjeta.setBorder(new EmptyBorder(10, 10, 10, 12));
+        tarjeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        JPanel franja = new JPanel();
+        franja.setBackground(colores[0]);
+        franja.setPreferredSize(new Dimension(6, 10));
+        tarjeta.add(franja, BorderLayout.WEST);
+
+        JPanel contenido = new JPanel();
+        contenido.setOpaque(false);
+        contenido.setLayout(new BoxLayout(contenido, BoxLayout.Y_AXIS));
+
+        JLabel lblTitulo = new JLabel(libro.titulo);
+        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 13));
+        lblTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel lblAutorAnio = new JLabel(libro.autor + " · " + libro.anio);
+        lblAutorAnio.setFont(new Font("SansSerif", Font.PLAIN, 11));
+        lblAutorAnio.setForeground(Color.GRAY);
+        lblAutorAnio.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JPanel filaInferior = new JPanel(new BorderLayout());
+        filaInferior.setOpaque(false);
+        filaInferior.setAlignmentX(Component.LEFT_ALIGNMENT);
+        filaInferior.setMaximumSize(new Dimension(Integer.MAX_VALUE, 22));
+
+        PanelRedondeado badge = new PanelRedondeado(999);
+        badge.setBackground(colores[1]);
+        badge.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        badge.setBorder(new EmptyBorder(2, 8, 2, 8));
+        JLabel lblEstado = new JLabel(libro.estado);
+        lblEstado.setFont(new Font("SansSerif", Font.PLAIN, 9));
+        lblEstado.setForeground(colores[2]);
+        badge.add(lblEstado);
+
+        JLabel lblCategoria = new JLabel(libro.categoria);
+        lblCategoria.setFont(new Font("SansSerif", Font.PLAIN, 10));
+        lblCategoria.setForeground(Color.GRAY);
+
+        filaInferior.add(badge, BorderLayout.WEST);
+        filaInferior.add(lblCategoria, BorderLayout.EAST);
+
+        contenido.add(lblTitulo);
+        contenido.add(Box.createVerticalStrut(2));
+        contenido.add(lblAutorAnio);
+        contenido.add(Box.createVerticalStrut(6));
+        contenido.add(filaInferior);
+
+        tarjeta.add(contenido, BorderLayout.CENTER);
+
+        MouseAdapter clicTarjeta = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                seleccionarLibro(libro, tarjeta);
+            }
+        };
+        tarjeta.addMouseListener(clicTarjeta);
+        for (Component c : contenido.getComponents()) {
+            c.addMouseListener(clicTarjeta);
+        }
 
         return tarjeta;
     }
+
+    private void seleccionarLibro(Libro libro, PanelRedondeado tarjetaUI) {
+
+        if (tarjetaSeleccionadaUI != null) {
+            tarjetaSeleccionadaUI.setSeleccionada(false);
+        }
+
+        libroSeleccionado = libro;
+        tarjetaSeleccionadaUI = tarjetaUI;
+        tarjetaUI.setSeleccionada(true);
+
+        txtCodigo.setText(libro.codigo);
+        txtTitulo.setText(libro.titulo);
+        txtAutor.setText(libro.autor);
+        txtEditorial.setText(libro.editorial);
+        cmbCategoria.setSelectedItem(libro.categoria);
+        spnAnio.setValue(libro.anio);
+        cmbEstado.setSelectedItem(libro.estado);
+        chkReferencia.setSelected(libro.referencia);
+        txtObservaciones.setText(libro.observaciones);
+    }
+
 
     // =========================================================
     // GESTIÓN DE USUARIOS
