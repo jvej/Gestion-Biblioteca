@@ -18,9 +18,11 @@ public class DashboardSwing extends JFrame {
 
 
     // COLORES
-    private final Color COLOR_FONDO = new Color(244, 246, 249);
-    private final Color COLOR_SUPERFICIE = Color.WHITE;
-    private final Color COLOR_BORDE = new Color(228, 231, 237);
+    private final Color COLOR_FONDO = new Color(18, 18, 20);
+    private final Color COLOR_SUPERFICIE = new Color(32,32,35);
+    private final Color COLOR_BORDE = new Color(70, 70, 75);
+    private final Color COLOR_TEXTO = new Color(235, 235, 238);
+    private final Color COLOR_TEXTO_SECUNDARIO = new Color(165, 165, 172);
     private final Color COLOR_VERDE = new Color(29, 158, 117);
     private final Color COLOR_VERDE_TEXTO = new Color(4, 52, 44);
     private final Color COLOR_AMBAR = new Color(186, 117, 23);
@@ -135,7 +137,36 @@ public class DashboardSwing extends JFrame {
 
     private void configurarLookAndFeel() {
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+
+            UIManager.put("Panel.background", COLOR_FONDO);
+            UIManager.put("Label.foreground", COLOR_TEXTO);
+            UIManager.put("OptionPane.background", COLOR_SUPERFICIE);
+            UIManager.put("OptionPane.messageForeground", COLOR_TEXTO);
+            UIManager.put("Panel.background", COLOR_SUPERFICIE);
+
+            UIManager.put("TextField.background", COLOR_SUPERFICIE);
+            UIManager.put("TextField.foreground", COLOR_TEXTO);
+            UIManager.put("TextField.caretForeground", COLOR_TEXTO);
+
+            UIManager.put("TextArea.background", COLOR_SUPERFICIE);
+            UIManager.put("TextArea.foreground", COLOR_TEXTO);
+            UIManager.put("TextArea.caretForeground", COLOR_TEXTO);
+
+            UIManager.put("ComboBox.background", COLOR_SUPERFICIE);
+            UIManager.put("ComboBox.foreground", COLOR_TEXTO);
+            UIManager.put("ComboBox.selectionBackground", COLOR_VERDE);
+            UIManager.put("ComboBox.selectionForeground", COLOR_VERDE_TEXTO);
+
+            UIManager.put("FormattedTextField.background", COLOR_SUPERFICIE);
+            UIManager.put("FormattedTextField.foreground", COLOR_TEXTO);
+            UIManager.put("Spinner.background", COLOR_SUPERFICIE);
+
+            UIManager.put("CheckBox.foreground", COLOR_TEXTO);
+
+            UIManager.put("ScrollPane.background", COLOR_FONDO);
+            UIManager.put("Viewport.background", COLOR_FONDO);
+
         } catch (Exception e) {
             System.out.println("No se pudo cargar Look & Feel.");
         }
@@ -155,7 +186,7 @@ public class DashboardSwing extends JFrame {
         logo.setOpaque(false);
         JLabel lblIcono  = new JLabel("\uD83D\uDCD6");
         lblIcono.setFont(new Font("SansSerif", Font.PLAIN, 22));
-        JLabel lblLogo = new JLabel("Bibliotec+");
+        JLabel lblLogo = new JLabel("Biblioteca");
         lblLogo.setFont(new Font("SansSerif", Font.BOLD, 16));
         logo.add(lblIcono);
         logo.add(lblLogo);
