@@ -39,7 +39,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
                 return new Color[] {new Color(226, 75, 74), new Color(252, 235, 235), new Color(80, 19,19)};
             case "Reservado":
             default:
-                return new Color[] {new Color(127, 119, 221), new Color(238, 237, 254)};
+                return new Color[] {new Color(127, 119, 221), new Color(238, 237, 254), new Color(38, 33,92)};
         }
     }
 
@@ -73,7 +73,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     }
 
     private final List<Libro> libros = new ArrayList<>(); //Aqui se almacenan los libros en una lista generica
-    private List<Libro> librosFiltrados = new ArrayList(); //Aqui se almacenan los libros que coinciden con la busqueda
+    private List<Libro> librosFiltrados = new ArrayList<>(); //Aqui se almacenan los libros que coinciden con la busqueda
 
     private Libro libroSeleccionado = null; //Se guarda el libro que el usuacio selecciono actualmente, tiene null porque al inicio del programa no tiene seleccionado ninguno
     private PanelRedondeado tarjetaSeleccionadaUI = null;  //Esta guarda la tarjeta visual que representa al libro seleccionado
@@ -226,31 +226,44 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
 
            return pildora;
    }
-    //Llegue hasta aqui
-    // =========================================================
-    // CONTENIDO PRINCIPAL
-    // =========================================================
-    private JPanel crearContenidoPrincipal() {
 
-        JPanel principal = new JPanel(new BorderLayout());
+   private JPanel crearContenidoPrincipal() {
+        JPanel principal = new PanelRedondeado(new BorderLayout());
         principal.setBackground(COLOR_FONDO);
-        principal.setBorder(new EmptyBorder(14,22,18,22));
+        principal.setBorder(new EmptyBorder(14, 22, 18, 22));
 
-        principal.add(crearCabecera(), BorderLayout.NORTH);
+        principal.add(crearPanelTarjetas(), BorderLayout.NORTH);
 
-        JPanel cuerpo = new JPanel(new BorderLayout(16,0));
+        JPanel cuerpo = new JPanel(new BorderLayout(16, 0));
         cuerpo.setOpaque(false);
-        cuerpo.setBorder(new EmptyBorder(14,0,0,0));
+        cuerpo.setBorder(new EmptyBorder(14, 0, 0, 0));
 
-        // Tarjetas
-        cuerpo.add(crearFormularioLibro(),BorderLayout.WEST);
-        cuerpo.add(crearPanelCatalogo(), BorderLayout.CENTER);
+        cuerpo.add(crearFormularioLibro(), BorderLayout.WEST);   // panel angosto y fijo
+        cuerpo.add(crearPanelCatalogo(), BorderLayout.CENTER);   // grilla de tarjetas
 
         principal.add(cuerpo, BorderLayout.CENTER);
 
         return principal;
-    }
+   }
 
+    private JPanel crearPanelTarjetas() {
+
+        JPanel panel = new JPanel(new GridLayout(1, 4, 10, 0));
+        panel.setOpaque(false);
+        panel.setPreferredSize(new Dimension(1000, 90));
+
+        lblTotalLibros = new JLabel("0");
+        lblDisponibles = new JLabel("0");
+        lblPrestados = new JLabel("0");
+        lblVencidos = new JLabel("0");
+
+        panel.add(crearTarjeta("📚", lblTotalLibros, "Libros en catálogo", COLOR_VERDE));
+        panel.add(crearTarjeta("✔", lblDisponibles, "Disponibles ahora", new Color(99, 153, 34)));
+        panel.add(crearTarjeta("⇄", lblPrestados, "Prestados", COLOR_AMBAR));
+        panel.add(crearTarjeta("⏱", lblVencidos, "Vencidos", COLOR_CORAL));
+
+        return panel;
+    }
     // =========================================================
     // CABECERA
     // =========================================================
