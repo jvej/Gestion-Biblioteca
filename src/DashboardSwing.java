@@ -584,7 +584,86 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         txtObservaciones.setText(libro.observaciones);
     }
 
+    private void cargarDatosIniciales() {
 
+        libros.add(new Libro("L001", "Cien Años de Soledad", "Gabriel García Márquez",
+                "Sudamericana", "Ficción", 1967, "Disponible", false, ""));
+
+        libros.add(new Libro("L002", "Introducción a los Algoritmos", "Cormen, Leiserson, Rivest",
+                "MIT Press", "Tecnología", 2009, "Prestado", false, ""));
+
+        libros.add(new Libro("L003", "Breve Historia del Tiempo", "Stephen Hawking",
+                "Crítica", "Ciencia", 1988, "Disponible", false, ""));
+
+        libros.add(new Libro("L004", "Diccionario de la Real Academia", "RAE",
+                "Espasa", "Académico", 2014, "Disponible", true, "Uso exclusivo en sala."));
+
+        libros.add(new Libro("L005", "El Principito", "Antoine de Saint-Exupéry",
+                "Reynal & Hitchcock", "Infantil", 1943, "Prestado", false, ""));
+
+        libros.add(new Libro("L006", "Sapiens: De Animales a Dioses", "Yuval Noah Harari",
+                "Debate", "Historia", 2011, "Vencido", false, ""));
+
+        libros.add(new Libro("L007", "Clean Code", "Robert C. Martin",
+                "Prentice Hall", "Tecnología", 2008, "Disponible", false, ""));
+
+        libros.add(new Libro("L008", "Cien Enigmas de Costa Rica", "Varios Autores",
+                "EUNED", "Historia", 2015, "Reservado", false, ""));
+
+        siguienteCodigo = 9;
+    }
+
+
+    private void nuevoLibro() {
+        limpiarFormulario();
+        txtCodigo.setText(generarSiguienteCodigo());
+        txtTitulo.requestFocus();
+    }
+
+    private String generarSiguienteCodigo() {
+        return String.format("L%03d", siguienteCodigo);
+    }
+
+    private void guardarLibro() {
+
+        if (!validarCampos()) return;
+
+        String codigo = txtCodigo.getText().trim();
+
+        if (existeCodigo(codigo, null)) {
+            JOptionPane.showMessageDialog(this,
+                    "Ya existe un libro registrado con el código \"" + codigo + "\".\n"
+                            + "Utilice el botón \"Nuevo registro\" para generar un código distinto.",
+                    "Código duplicado", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Libro nuevo = new Libro(
+                codigo,
+                txtTitulo.getText().trim(),
+                txtAutor.getText().trim(),
+                txtEditorial.getText().trim(),
+                (String) cmbCategoria.getSelectedItem(),
+                (Integer) spnAnio.getValue(),
+                (String) cmbEstado.getSelectedItem(),
+                chkReferencia.isSelected(),
+                txtObservaciones.getText().trim()
+        );
+
+        libros.add(nuevo);
+        siguienteCodigo++;
+
+        actualizarTarjetasDashboard();
+        filtrarLibros();   // vuelve a calcular la vista (respeta el texto de búsqueda actual)
+
+        JOptionPane.showMessageDialog(this,
+                "El libro \"" + nuevo.titulo + "\" se guardó correctamente.",
+                "Registro guardado", JOptionPane.INFORMATION_MESSAGE);
+
+        limpiarFormulario();
+    }
+
+//Hasta aqui voy
     // =========================================================
     // GESTIÓN DE USUARIOS
     // =========================================================
