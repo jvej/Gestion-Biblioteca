@@ -631,8 +631,7 @@ public class GestionBiblioteca extends JFrame {
         String codigo = txtCodigo.getText().trim();
 
         if (existeCodigo(codigo, null)) {
-            JOptionPane.showMessageDialog(this,
-                    "Ya existe un libro registrado con el código \"" + codigo + "\".\n"
+            JOptionPane.showMessageDialog(this, "Ya existe un libro registrado con el código \"" + codigo + "\".\n"
                             + "Utilice el botón \"Nuevo registro\" para generar un código distinto.",
                     "Código duplicado", JOptionPane.WARNING_MESSAGE);
             return;
@@ -654,11 +653,9 @@ public class GestionBiblioteca extends JFrame {
         siguienteCodigo++;
 
         actualizarTarjetasDashboard();
-        filtrarLibros();   // vuelve a calcular la vista (respeta el texto de búsqueda actual)
+        filtrarLibros();
 
-        JOptionPane.showMessageDialog(this,
-                "El libro \"" + nuevo.titulo + "\" se guardó correctamente.",
-                "Registro guardado", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "El libro \"" + nuevo.titulo + "\" se guardó correctamente.", "Registro guardado", JOptionPane.INFORMATION_MESSAGE);
 
         limpiarFormulario();
     }
@@ -666,15 +663,11 @@ public class GestionBiblioteca extends JFrame {
     private void eliminarLibro() {
 
         if (libroSeleccionado == null) {
-            JOptionPane.showMessageDialog(this,
-                    "Debe seleccionar un libro del catálogo antes de eliminarlo.",
-                    "Ningún registro seleccionado", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un libro del catálogo antes de eliminarlo.", "Ningún registro seleccionado", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        int opcion = JOptionPane.showConfirmDialog(this,
-                "¿Desea eliminar el libro \"" + libroSeleccionado.titulo + "\"?\nEsta acción no se puede deshacer.",
-                "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el libro \"" + libroSeleccionado.titulo + "\"?\nEsta acción no se puede deshacer.", "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (opcion == JOptionPane.YES_OPTION) {
             libros.remove(libroSeleccionado);
@@ -683,12 +676,27 @@ public class GestionBiblioteca extends JFrame {
             limpiarFormulario();
             filtrarLibros();
 
-            JOptionPane.showMessageDialog(this,
-                    "El libro fue eliminado del catálogo.",
-                    "Registro eliminado", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El libro fue eliminado del catálogo.", "Registro eliminado", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
+    private void limpiarFormulario() {
+        txtCodigo.setText("");
+        txtTitulo.setText("");
+        txtAutor.setText("");
+        txtEditorial.setText("");
+        cmbCategoria.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
+        spnAnio.setValue(Calendar.getInstance().get(Calendar.YEAR));
+        chkReferencia.setSelected(false);
+        txtObservaciones.setText("");
+
+        if (tarjetaSeleccionadaUI != null) {
+            tarjetaSeleccionadaUI.setSeleccionada(false);
+        }
+        libroSeleccionado = null;
+        tarjetaSeleccionadaUI = null;
+    }
 
     //Hasta aqui voy
 
