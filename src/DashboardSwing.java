@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
-public class GestionBiblioteca extends JFrame {
+public class DashboardSwing extends JFrame {
 
 // GESTIÓN DE BIBLIOTECA - Dashboard con Java Swing (VERSIÓN 2 - REDISEÑO)
 
@@ -108,7 +108,7 @@ public class GestionBiblioteca extends JFrame {
     // =========================================================
     // CONSTRUCTOR
     // =========================================================
-    public GestionBiblioteca() {
+    public DashboardSwing() {
 
         setTitle("Gestión de Biblioteca - Dashboard Java Swing");
         setSize(1500, 930);
@@ -218,7 +218,7 @@ public class GestionBiblioteca extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!activo) {
-                    JOptionPane.showMessageDialog(GestionBiblioteca.this, "Esta sección todavía no está implementada en esta actividad.\n"  + "El módulo funcional es \"Catálogo\".", "Aviso", JOptionPane.INFORMATION_MESSAGE);}
+                    JOptionPane.showMessageDialog(DashboardSwing.this, "Esta sección todavía no está implementada en esta actividad.\n"  + "El módulo funcional es \"Catálogo\".", "Aviso", JOptionPane.INFORMATION_MESSAGE);}
             }
         });
 
@@ -238,7 +238,7 @@ public class GestionBiblioteca extends JFrame {
         cuerpo.setBorder(new EmptyBorder(14, 0, 0, 0));
 
         cuerpo.add(crearFormularioLibro(), BorderLayout.WEST);
-        cuerpo.add(crearPanelCatalogo(), BorderLayout.CENTER);   
+        cuerpo.add(crearPanelCatalogo(), BorderLayout.CENTER);
 
         principal.add(cuerpo, BorderLayout.CENTER);
 
@@ -698,6 +698,45 @@ public class GestionBiblioteca extends JFrame {
     }
 
     //Hasta aqui voy
+    private void editarLibro() {
+
+        if (libroSeleccionado == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Debe seleccionar un libro del catálogo antes de editarlo.",
+                    "Ningún registro seleccionado", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!validarCampos()) return;
+
+        String codigo = txtCodigo.getText().trim();
+
+        if (existeCodigo(codigo, libroSeleccionado)) {
+            JOptionPane.showMessageDialog(this,
+                    "Ya existe otro libro registrado con el código \"" + codigo + "\".",
+                    "Código duplicado", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        libroSeleccionado.codigo = codigo;
+        libroSeleccionado.titulo = txtTitulo.getText().trim();
+        libroSeleccionado.autor = txtAutor.getText().trim();
+        libroSeleccionado.editorial = txtEditorial.getText().trim();
+        libroSeleccionado.categoria = (String) cmbCategoria.getSelectedItem();
+        libroSeleccionado.anio = (Integer) spnAnio.getValue();
+        libroSeleccionado.estado = (String) cmbEstado.getSelectedItem();
+        libroSeleccionado.referencia = chkReferencia.isSelected();
+        libroSeleccionado.observaciones = txtObservaciones.getText().trim();
+
+        actualizarTarjetasDashboard();
+        filtrarLibros();
+
+        JOptionPane.showMessageDialog(this,
+                "El libro se actualizó correctamente.",
+                "Registro actualizado", JOptionPane.INFORMATION_MESSAGE);
+
+        limpiarFormulario();
+    }
     // =========================================================
     private boolean validarCampos() {
 

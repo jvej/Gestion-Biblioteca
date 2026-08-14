@@ -6,7 +6,7 @@ public class Principal {
         // dentro del hilo de eventos de Swing (Event Dispatch Thread),
         // que es la forma correcta y segura de iniciar cualquier GUI.
         SwingUtilities.invokeLater(() -> {
-            GestionBiblioteca ventana = new GestionBiblioteca();
+            DashboardSwing ventana = new DashboardSwing();
             ventana.setVisible(true);
         });
     }
