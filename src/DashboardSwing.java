@@ -87,15 +87,15 @@ public class GestionBiblioteca extends JFrame {
     private JTextField txtTitulo;
     private JTextField txtAutor;
     private JTextField txtEditorial;
-    private JComboBox<String> cmCategoria;
+    private JComboBox<String> cmbCategoria;
     private JComboBox<String> cmbEstado;
     private JSpinner spnAnio;
-    private JCheckBox chkRefencia;
+    private JCheckBox chkReferencia;
     private JTextArea txtObservaciones;
     private JTextField txtBuscar;
 
     private JPanel panelGrillaLibros;
-    private JLanel lblContadorLibros;
+    private JLabel lblContadorLibros;
     private JPanel panelPaginacion;
     private JLabel lblFechaHora;
 
