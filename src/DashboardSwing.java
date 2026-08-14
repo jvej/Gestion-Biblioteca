@@ -193,8 +193,58 @@ public class GestionBiblioteca extends JFrame {
 
         return barra;
     }
+    //---------------------------------------------------------------------------------------
+    // =========================================================
+    // CLASE AUXILIAR PANEL REDONDEADO (Faltaba en el código)
+    // =========================================================
+    public static class PanelRedondeado extends JPanel {
+        private int radio;
+        private boolean seleccionada = false;
+        private Color colorBordeSeleccion = new Color(29, 158, 117); // COLOR_VERDE
 
+        public PanelRedondeado(int radio) {
+            super();
+            this.radio = radio;
+            setOpaque(false);
+        }
 
+        public PanelRedondeado(LayoutManager layout) {
+            super(layout);
+            this.radio = 12;
+            setOpaque(false);
+        }
+
+        public void setSeleccionada(boolean seleccionada) {
+            this.seleccionada = seleccionada;
+            repaint(); // Vuelve a pintar el panel para refrescar el borde de selección
+        }
+
+        public boolean isSeleccionada() {
+            return seleccionada;
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            // Antialiasing para que bordes y esquinas se vean suaves
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Dibujar fondo con esquinas redondeadas
+            g2.setColor(getBackground());
+            g2.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radio, radio);
+
+            // Dibujar borde cuando la tarjeta de catálogo está seleccionada
+            if (seleccionada) {
+                g2.setColor(colorBordeSeleccion);
+                g2.setStroke(new BasicStroke(2f));
+                g2.drawRoundRect(1, 1, getWidth() - 3, getHeight() - 3, radio, radio);
+            }
+
+            g2.dispose();
+            super.paintComponent(g);
+        }
+    }
+    //---------------------------------------------------------------------------------------
     private PanelRedondeado crearPildoraMenu(String texto, boolean activo) {
         PanelRedondeado pildora = new PanelRedondeado(999);
         pildora.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
