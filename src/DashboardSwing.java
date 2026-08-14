@@ -226,7 +226,7 @@ public class GestionBiblioteca extends JFrame {
     }
 
     private JPanel crearContenidoPrincipal() {
-        PanelRedondeado principal = new PanelRedondeado(12);   // radio de 12px, o el que quieras
+        PanelRedondeado principal = new PanelRedondeado(12);
         principal.setLayout(new BorderLayout());
         principal.setBackground(COLOR_FONDO);
         principal.setBorder(new EmptyBorder(14, 22, 18, 22));
@@ -237,8 +237,8 @@ public class GestionBiblioteca extends JFrame {
         cuerpo.setOpaque(false);
         cuerpo.setBorder(new EmptyBorder(14, 0, 0, 0));
 
-        cuerpo.add(crearFormularioLibro(), BorderLayout.WEST);   // panel angosto y fijo
-        cuerpo.add(crearPanelCatalogo(), BorderLayout.CENTER);   // grilla de tarjetas
+        cuerpo.add(crearFormularioLibro(), BorderLayout.WEST);
+        cuerpo.add(crearPanelCatalogo(), BorderLayout.CENTER);   
 
         principal.add(cuerpo, BorderLayout.CENTER);
 
