@@ -226,7 +226,8 @@ public class GestionBiblioteca extends JFrame {
     }
 
     private JPanel crearContenidoPrincipal() {
-        JPanel principal = new PanelRedondeado(new BorderLayout());
+        PanelRedondeado principal = new PanelRedondeado(12);   // radio de 12px, o el que quieras
+        principal.setLayout(new BorderLayout());
         principal.setBackground(COLOR_FONDO);
         principal.setBorder(new EmptyBorder(14, 22, 18, 22));
 
