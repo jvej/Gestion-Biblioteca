@@ -17,8 +17,8 @@ public class GestionBiblioteca extends JFrame {
 // GESTIÓN DE BIBLIOTECA - Dashboard con Java Swing (VERSIÓN 2 - REDISEÑO)
 
 
-// COLORES
-private final Color COLOR_FONDO = new Color(244, 246, 249);
+    // COLORES
+    private final Color COLOR_FONDO = new Color(244, 246, 249);
     private final Color COLOR_SUPERFICIE = Color.WHITE;
     private final Color COLOR_BORDE = new Color(228, 231, 237);
     private final Color COLOR_VERDE = new Color(29, 158, 117);
@@ -195,7 +195,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
     }
 
 
-   private PanelRedondeado crearPildoraMenu(String texto, boolean activo) {
+    private PanelRedondeado crearPildoraMenu(String texto, boolean activo) {
         PanelRedondeado pildora = new PanelRedondeado(999);
         pildora.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         pildora.setBorder(new EmptyBorder(7, 14, 7, 14));
@@ -209,25 +209,25 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         pildora.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                   if (!activo) pildora.setBackground(new Color(232, 235, 240));
+                if (!activo) pildora.setBackground(new Color(232, 235, 240));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                   if (!activo) pildora.setBackground(COLOR_FONDO);
+                if (!activo) pildora.setBackground(COLOR_FONDO);
             }
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!activo) {
                     JOptionPane.showMessageDialog(GestionBiblioteca.this, "Esta sección todavía no está implementada en esta actividad.\n"  + "El módulo funcional es \"Catálogo\".", "Aviso", JOptionPane.INFORMATION_MESSAGE);}
-               }
-           });
+            }
+        });
 
-           return pildora;
-   }
+        return pildora;
+    }
 
-   private JPanel crearContenidoPrincipal() {
+    private JPanel crearContenidoPrincipal() {
         JPanel principal = new PanelRedondeado(new BorderLayout());
         principal.setBackground(COLOR_FONDO);
         principal.setBorder(new EmptyBorder(14, 22, 18, 22));
@@ -244,7 +244,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         principal.add(cuerpo, BorderLayout.CENTER);
 
         return principal;
-   }
+    }
 
     private JPanel crearPanelTarjetas() {
 
@@ -663,7 +663,7 @@ private final Color COLOR_FONDO = new Color(244, 246, 249);
         limpiarFormulario();
     }
 
-//Hasta aqui voy
+    //Hasta aqui voy
     // =========================================================
     // GESTIÓN DE USUARIOS
     // =========================================================
