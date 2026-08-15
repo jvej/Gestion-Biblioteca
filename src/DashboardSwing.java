@@ -455,8 +455,9 @@ public class DashboardSwing extends JFrame {
     // MÓDULO 1: CATÁLOGO DE LIBROS
     // =========================================================
     private JPanel crearPanelCatalogo() {
-        JPanel panel = new JPanel(new BorderLayout(16, 0));
+        JPanel panel = new JPanel(new BorderLayout(16, 12));
         panel.setOpaque(false);
+        panel.add(crearBarraAccionesLibro(), BorderLayout.NORTH);
         panel.add(crearFormularioLibro(), BorderLayout.WEST);
 
         modeloLibros = crearModeloNoEditable(new String[]{"Código", "Título", "Autor", "Editorial", "Categoría", "Año", "Estado"});
@@ -575,33 +576,28 @@ public class DashboardSwing extends JFrame {
 
         panel.add(campos, BorderLayout.CENTER);
 
-        JPanel botones = new JPanel();
-        botones.setOpaque(false);
-        botones.setLayout(new BoxLayout(botones, BoxLayout.Y_AXIS));
+        return panel;
+    }
+
+    /** Barra horizontal de acciones del módulo de Libros: se ubica entre las tarjetas del
+     *  dashboard y la barra de búsqueda, en lugar de ir apilada dentro del formulario lateral. */
+    private JPanel crearBarraAccionesLibro() {
+        PanelRedondeado barra = new PanelRedondeado(12);
+        barra.setBackground(COLOR_SUPERFICIE);
+        barra.setLayout(new FlowLayout(FlowLayout.LEFT, 8, 0));
+        barra.setBorder(new EmptyBorder(10, 14, 10, 14));
 
         JButton btnGuardar = crearBoton("Guardar libro", COLOR_VERDE, COLOR_VERDE_TEXTO, true);
-
-        JPanel filaEditarEliminar = new JPanel(new GridLayout(1, 2, 6, 0));
-        filaEditarEliminar.setOpaque(false);
-        filaEditarEliminar.setAlignmentX(Component.LEFT_ALIGNMENT);
-        filaEditarEliminar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         JButton btnEditar = crearBoton("Editar", new Color(238, 240, 244), Color.BLACK, false);
         JButton btnEliminar = crearBoton("Eliminar", new Color(252, 235, 235), COLOR_CORAL, false);
-        filaEditarEliminar.add(btnEditar);
-        filaEditarEliminar.add(btnEliminar);
-
         JButton btnNuevo = crearBoton("＋ Nuevo registro", new Color(238, 240, 244), Color.BLACK, false);
         JButton btnLimpiar = crearBoton("Limpiar formulario", COLOR_SUPERFICIE, Color.GRAY, false);
 
-        botones.add(btnGuardar);
-        botones.add(Box.createVerticalStrut(6));
-        botones.add(filaEditarEliminar);
-        botones.add(Box.createVerticalStrut(6));
-        botones.add(btnNuevo);
-        botones.add(Box.createVerticalStrut(4));
-        botones.add(btnLimpiar);
-
-        panel.add(botones, BorderLayout.SOUTH);
+        barra.add(btnGuardar);
+        barra.add(btnEditar);
+        barra.add(btnEliminar);
+        barra.add(btnNuevo);
+        barra.add(btnLimpiar);
 
         btnNuevo.addActionListener(e -> nuevoLibro());
         btnGuardar.addActionListener(e -> guardarLibro());
@@ -609,7 +605,7 @@ public class DashboardSwing extends JFrame {
         btnEliminar.addActionListener(e -> eliminarLibro());
         btnLimpiar.addActionListener(e -> limpiarFormularioLibro());
 
-        return panel;
+        return barra;
     }
 
     private void nuevoLibro() {
@@ -778,8 +774,9 @@ public class DashboardSwing extends JFrame {
     // MÓDULO 2: USUARIOS / LECTORES
     // =========================================================
     private JPanel crearPanelUsuarios() {
-        JPanel panel = new JPanel(new BorderLayout(16, 0));
+        JPanel panel = new JPanel(new BorderLayout(16, 12));
         panel.setOpaque(false);
+        panel.add(crearBarraAccionesUsuario(), BorderLayout.NORTH);
         panel.add(crearFormularioUsuario(), BorderLayout.WEST);
 
         modeloUsuarios = crearModeloNoEditable(new String[]{"ID / Cédula", "Nombre", "Correo", "Teléfono", "Tipo", "Estado"});
@@ -871,33 +868,28 @@ public class DashboardSwing extends JFrame {
 
         panel.add(campos, BorderLayout.CENTER);
 
-        JPanel botones = new JPanel();
-        botones.setOpaque(false);
-        botones.setLayout(new BoxLayout(botones, BoxLayout.Y_AXIS));
+        return panel;
+    }
+
+    /** Barra horizontal de acciones del módulo de Usuarios: misma idea que en Libros,
+     *  arriba del buscador y debajo de las tarjetas del dashboard. */
+    private JPanel crearBarraAccionesUsuario() {
+        PanelRedondeado barra = new PanelRedondeado(12);
+        barra.setBackground(COLOR_SUPERFICIE);
+        barra.setLayout(new FlowLayout(FlowLayout.LEFT, 8, 0));
+        barra.setBorder(new EmptyBorder(10, 14, 10, 14));
 
         JButton btnGuardar = crearBoton("Guardar usuario", COLOR_VERDE, COLOR_VERDE_TEXTO, true);
-
-        JPanel filaEditarEliminar = new JPanel(new GridLayout(1, 2, 6, 0));
-        filaEditarEliminar.setOpaque(false);
-        filaEditarEliminar.setAlignmentX(Component.LEFT_ALIGNMENT);
-        filaEditarEliminar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         JButton btnEditar = crearBoton("Editar", new Color(238, 240, 244), Color.BLACK, false);
         JButton btnEliminar = crearBoton("Eliminar", new Color(252, 235, 235), COLOR_CORAL, false);
-        filaEditarEliminar.add(btnEditar);
-        filaEditarEliminar.add(btnEliminar);
-
         JButton btnNuevo = crearBoton("＋ Nuevo registro", new Color(238, 240, 244), Color.BLACK, false);
         JButton btnLimpiar = crearBoton("Limpiar formulario", COLOR_SUPERFICIE, Color.GRAY, false);
 
-        botones.add(btnGuardar);
-        botones.add(Box.createVerticalStrut(6));
-        botones.add(filaEditarEliminar);
-        botones.add(Box.createVerticalStrut(6));
-        botones.add(btnNuevo);
-        botones.add(Box.createVerticalStrut(4));
-        botones.add(btnLimpiar);
-
-        panel.add(botones, BorderLayout.SOUTH);
+        barra.add(btnGuardar);
+        barra.add(btnEditar);
+        barra.add(btnEliminar);
+        barra.add(btnNuevo);
+        barra.add(btnLimpiar);
 
         btnNuevo.addActionListener(e -> nuevoUsuario());
         btnGuardar.addActionListener(e -> guardarUsuario());
@@ -905,7 +897,7 @@ public class DashboardSwing extends JFrame {
         btnEliminar.addActionListener(e -> eliminarUsuario());
         btnLimpiar.addActionListener(e -> limpiarFormularioUsuario());
 
-        return panel;
+        return barra;
     }
 
     private void nuevoUsuario() {
