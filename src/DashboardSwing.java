@@ -144,6 +144,12 @@ public class DashboardSwing extends JFrame {
         }
     }
 
+
+    private static class CampoInvalidoException extends Exception {
+        CampoInvalidoException(String mensaje) {
+            super(mensaje);
+        }
+    }
     // =========================================================
     // ALMACENAMIENTO EN MEMORIA
     // =========================================================
@@ -1011,26 +1017,46 @@ public class DashboardSwing extends JFrame {
     }
 
     private boolean validarCamposUsuario() {
-        StringBuilder errores = new StringBuilder();
-        if (txtIdUsuario.getText().trim().isEmpty()) errores.append("- El ID/Cédula es obligatorio.\n");
-        if (txtNombreUsuario.getText().trim().isEmpty()) errores.append("- El nombre completo es obligatorio.\n");
-
-        String correo = txtCorreo.getText().trim();
-        if (correo.isEmpty()) {
-            errores.append("- El correo electrónico es obligatorio.\n");
-        } else if (!correo.contains("@") || !correo.contains(".")) {
-            errores.append("- El correo electrónico no tiene un formato válido.\n");
-        }
-
-        if (txtTelefono.getText().trim().isEmpty()) errores.append("- El teléfono es obligatorio.\n");
-
-        if (errores.length() > 0) {
-            JOptionPane.showMessageDialog(this,
-                    "Por favor corrija los siguientes errores antes de continuar:\n\n" + errores,
-                    "Datos incompletos", JOptionPane.ERROR_MESSAGE);
+        try {
+            validarSoloNumeros(txtIdUsuario.getText().trim(), "ID / Cédula");
+            validarSoloTexto(txtNombreUsuario.getText().trim(), "Nombre completo");
+            validarCorreo(txtCorreo.getText().trim());
+            validarSoloNumeros(txtTelefono.getText().trim(), "Teléfono");
+            return true;
+        } catch (CampoInvalidoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos inválidos", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        return true;
+    }
+
+    /** Lanza una excepción si el campo está vacío o contiene números/símbolos (uso: nombres). */
+    private void validarSoloTexto(String valor, String nombreCampo) throws CampoInvalidoException {
+        if (valor.isEmpty()) {
+            throw new CampoInvalidoException("El campo \"" + nombreCampo + "\" es obligatorio.");
+        }
+        if (!valor.matches("[\\p{L} .'-]+")) {
+            throw new CampoInvalidoException("El campo \"" + nombreCampo + "\" no puede contener números ni símbolos.");
+        }
+    }
+
+    /** Lanza una excepción si el campo está vacío o contiene letras (uso: teléfono, cédula). */
+    private void validarSoloNumeros(String valor, String nombreCampo) throws CampoInvalidoException {
+        if (valor.isEmpty()) {
+            throw new CampoInvalidoException("El campo \"" + nombreCampo + "\" es obligatorio.");
+        }
+        if (!valor.matches("[0-9-]+")) {
+            throw new CampoInvalidoException("El campo \"" + nombreCampo + "\" solo puede contener números.");
+        }
+    }
+
+    /** Lanza una excepción si el correo está vacío o no cumple un formato básico válido. */
+    private void validarCorreo(String valor) throws CampoInvalidoException {
+        if (valor.isEmpty()) {
+            throw new CampoInvalidoException("El correo electrónico es obligatorio.");
+        }
+        if (!valor.matches("^[\\w.+-]+@[\\w-]+\\.[a-zA-Z]{2,}$")) {
+            throw new CampoInvalidoException("El correo electrónico no tiene un formato válido.");
+        }
     }
 
     private boolean existeIdUsuario(String id, Usuario ignorar) {
