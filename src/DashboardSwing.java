@@ -581,8 +581,6 @@ public class DashboardSwing extends JFrame {
         return panel;
     }
 
-    /** Barra horizontal de acciones del módulo de Libros: se ubica entre las tarjetas del
-     *  dashboard y la barra de búsqueda, en lugar de ir apilada dentro del formulario lateral. */
     private JPanel crearBarraAccionesLibro() {
         PanelRedondeado barra = new PanelRedondeado(12);
         barra.setBackground(COLOR_SUPERFICIE);
@@ -772,9 +770,7 @@ public class DashboardSwing extends JFrame {
         return null;
     }
 
-    // =========================================================
-    // MÓDULO 2: USUARIOS / LECTORES
-    // =========================================================
+    // USUARIOS / LECTORES
     private JPanel crearPanelUsuarios() {
         JPanel panel = new JPanel(new BorderLayout(16, 12));
         panel.setOpaque(false);
@@ -873,8 +869,7 @@ public class DashboardSwing extends JFrame {
         return panel;
     }
 
-    /** Barra horizontal de acciones del módulo de Usuarios: misma idea que en Libros,
-     *  arriba del buscador y debajo de las tarjetas del dashboard. */
+    // logica similar al catalogo
     private JPanel crearBarraAccionesUsuario() {
         PanelRedondeado barra = new PanelRedondeado(12);
         barra.setBackground(COLOR_SUPERFICIE);
