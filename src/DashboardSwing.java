@@ -384,9 +384,7 @@ public class DashboardSwing extends JFrame {
         }
     }
 
-    // =========================================================
     // CONTENIDO PRINCIPAL
-    // =========================================================
     private JPanel crearContenidoPrincipal() {
         PanelRedondeado principal = new PanelRedondeado(12);
         principal.setLayout(new BorderLayout());
@@ -457,9 +455,7 @@ public class DashboardSwing extends JFrame {
         return tarjeta;
     }
 
-    // =========================================================
-    // MÓDULO 1: CATÁLOGO DE LIBROS
-    // =========================================================
+    // CATALOGO DE LIBROS
     private JPanel crearPanelCatalogo() {
         JPanel panel = new JPanel(new BorderLayout(16, 12));
         panel.setOpaque(false);
